@@ -1,20 +1,26 @@
-version: '3' # You can remove this version line
-
+version: '3'
 services:
   backend:
     build:
-      context: ./backend        # Ensure the path is correct
+      context: ../backend       
     ports:
       - "8000:8000"
     volumes:
-      - ./backend/app:/app/app  # Mount the app folder for live reload
+      - ../backend/app:/app/app  
+    networks:
+      - app-network
 
   frontend:
     build:
-      context: ./frontend       # Ensure the path is correct
+      context: .     
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
+      - .:/app
     depends_on:
       - backend
+    networks:
+      - app-network  
+networks:
+  app-network:  
+    driver: bridge
