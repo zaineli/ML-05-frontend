@@ -21,6 +21,20 @@ services:
       - backend
     networks:
       - app-network  
+
+  puppeteer:
+    build:
+      context: ../puppeteer
+    ports:
+      - "8081:8081"
+    volumes:
+      - ../puppeteer:/app
+    depends_on:
+      - backend
+    command: nodemon index.js
+    networks:
+      - app-network
+
 networks:
   app-network:  
     driver: bridge
